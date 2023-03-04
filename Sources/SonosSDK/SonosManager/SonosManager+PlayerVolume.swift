@@ -52,6 +52,10 @@ extension SonosManager {
 
         playerVolumeService.setRelativeVolume(authenticationToken: authenticationToken, playerID: player.id, relativeVolume: relativeVolume, success: success, failure: failure)
     }
+    
+
+    
+    // subscribe
 
     public func subscribeToPlayerVolume(forPlayer player: Player, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {
         guard let authenticationToken = authenticationToken else {

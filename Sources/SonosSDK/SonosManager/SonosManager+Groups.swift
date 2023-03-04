@@ -25,7 +25,7 @@ extension SonosManager {
         let groupPlayers = players.filter { return group.playerIDs.contains($0.id) }
         return groupPlayers
     }
-
+    
     public func modifyGroupMembers(groupId: String, playerIdsToAdd: [String], playerIdsToRemove: [String], success: @escaping (Group?, Error?) -> Void, failure: @escaping (Error?) -> Void) {
 
         guard let authenticationToken = authenticationToken else {
@@ -39,6 +39,9 @@ extension SonosManager {
         }, failure: failure)
     }
 
+    
+    // subscribe
+    
     public func subscribeToGroups(forHouseholdId householdId: String, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {
         guard let authenticationToken = authenticationToken else {
             let error = NSError.errorWithMessage(message: "Could not load authentication token.")

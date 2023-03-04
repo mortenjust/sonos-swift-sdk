@@ -17,8 +17,13 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(name: "SonosNetworking", url: "https://github.com/JimmyJammed/sonos-swift-networking.git", from: "1.0.0"),
         .package(url: "https://github.com/stleamist/BetterSafariView.git", .upToNextMajor(from: "2.3.1")),
-        .package(url: "https://github.com/Swinject/Swinject.git", from: "2.7.1"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.1"),
+    
+        // candidate for removal
+            .package(url: "https://github.com/Swinject/Swinject.git", from: "2.7.1"),
+        
+        
+        // this package is corrupt and no code is referencing it
 //        .package(url: "https://github.com/realm/SwiftLint.git", .upToNextMajor(from: "0.43.1"))
     ],
     targets: [

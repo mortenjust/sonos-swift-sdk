@@ -19,7 +19,10 @@ extension SonosManager {
         favoriteService.getFavorites(authenticationToken: authenticationToken, householdId: householdId, success: success, failure: failure)
     }
 
-    public func loadFavorite(groupId: String, favoriteId: String, success: @escaping (Error?) -> Void, failure: @escaping (Error?) -> Void) {
+    
+    // Play favorite
+    
+    func loadFavorite(groupId: String, favoriteId: String, success: @escaping (Error?) -> Void, failure: @escaping (Error?) -> Void) {
         guard let authenticationToken = authenticationToken else {
             let error = NSError.errorWithMessage(message: "Could not load authentication token.")
             failure(error)
@@ -27,6 +30,22 @@ extension SonosManager {
         }
 
         favoriteService.loadFavorite(authenticationToken: authenticationToken, groupId: groupId, favoriteId: favoriteId, success: success, failure: failure)
+    }
+    
+    public func playFavorite(groupId: String, favoriteId: String) async throws {
+        return try await withCheckedThrowingContinuation({ continuation in
+            loadFavorite(groupId: groupId, favoriteId: favoriteId) { err in
+                if let err {
+                    continuation.resume(throwing: err)
+                }
+            } failure: { err in
+                if let err {
+                    continuation.resume(throwing: err)
+                }
+            }
+            continuation.resume()
+            
+        })
     }
 
     public func subscribeToFavorites(forHouseholdId householdId: String, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {

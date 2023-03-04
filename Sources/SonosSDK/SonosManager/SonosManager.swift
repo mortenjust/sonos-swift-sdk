@@ -34,13 +34,18 @@ public class SonosManager: ObservableObject {
     let container = ConfigurationProvider.shared.container
 
     var client: Client
-
+    
     var authenticationToken: AuthenticationToken? {
         didSet {
-            isAuthenticated = !(authenticationToken?.isExpired ?? true)
+            Task {
+                
+                await MainActor.run {
+                    isAuthenticated = !(authenticationToken?.isExpired ?? true)
+                }
+            }
         }
     }
-
+    
     var encodedClientKey: String? {
         let encodedKeys = (client.key + ":" + client.secret).base64encoded
         return encodedKeys
